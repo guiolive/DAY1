@@ -57,17 +57,17 @@ const bdProcessos = [
 
 
 //CRIAÇÃO DAS ROTAS
-app.get("/todos", (req, res) => {
+app.get("/todos", (req, res) => { //rota para listar todos os processos
   // req -> request -> REQUISIÇÃO QUE VEM DO CLIENTE
   // res -> response -> RESPOSTA PARA O CLIENTE
   //retorna uma resposta com status de 200 e um json .....
-  return res.status(200).json(bdProcessos);
+  return res.status(200).json(bdProcessos); //retorna um json com todos os processos
 });
 
 // ATIVIDADE CRIANDO UMA ROTA
 
-//POST - CREATE
-app.post('/criar', (req, res) => {
+//POST -> CRIAÇÃO DE UM NOVO PROCESSO
+app.post('/criar', (req, res) => { //rota para criar um novo processo
   const form = req.body;
 
   bdProcessos.push(form);
@@ -75,6 +75,9 @@ app.post('/criar', (req, res) => {
   return res.status(201).json(bdProcessos); 
 
 });
+
+
+//PUT -> ATUALIZAÇÃO DE UM PROCESSO
 
 app.put('atualizar/:id', (req, res) => {
   const { id } = req.params;
@@ -87,18 +90,18 @@ app.put('atualizar/:id', (req, res) => {
 
 });
 
-app.delete("/excluir/:id", (req, res) => {
-	const { id } = req.params;
+// DELETE -> DELEÇÃO DE UM PROCESSO
+app.delete("/excluir/:id", (req, res) => { // :id -> parâmetro
+	const { id } = req.params; // desestruturação
 	const deleteById = bdProcessos.find((processo) => processo.id === id);
-	const index = bdProcessos.indexOf(deleteById);
+	const index = bdProcessos.indexOf(deleteById); // retorna o índice do elemento
 
-	bdProcessos.splice(index, 1);
+	bdProcessos.splice(index, 1); // remove o elemento do array
 
-	return res.status(200).json(bdProcessos);
+	return res.status(200).json(bdProcessos); // retorna o array atualizado
 });
 
-app.listen(process.env.PORT, () => {});
-
+app.listen(process.env.PORT, () => {}); //inicia o servidor na porta 3000
 
 
 
